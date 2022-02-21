@@ -2,9 +2,9 @@
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "postgres",
-  "password": "database_password",
-  "database": "database_name",
+  "username": "pewpewer",
+  "password": "pewpewer",
+  "database": "postgres",
   "entities": [
     "./src/modules/*/infra/typeorm/entities/*.ts"
   ],
