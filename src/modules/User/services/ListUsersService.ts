@@ -15,7 +15,7 @@ class ListUserServices {
   public async execute(filter: string): Promise<User[]> {
     const allUsers = await this.userRepository.findAll();
     const users = [] as User[];
-    allUsers.forEach((user) => {
+    allUsers?.forEach((user) => {
       if (user.username.includes(filter)) users.push(user);
     });
 

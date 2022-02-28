@@ -6,11 +6,11 @@ import container from '../../../../../shared/container';
 
 export default class DeletePiusController {
   public async execute(request: Request, response: Response): Promise<Response> {
-    const postPiu = container.resolve(DeletePiusServices);
+    const deletePiu = container.resolve(DeletePiusServices);
 
     const { piu_id } = request.body;
-
-    const user = await postPiu.execute(piu_id);
+    const user_id = request.user.id;
+    const user = await deletePiu.execute(piu_id, user_id);
 
     return response.json(user);
   }

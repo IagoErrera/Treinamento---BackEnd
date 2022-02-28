@@ -1,9 +1,9 @@
-import Piu from '@modules/Pius/infra/typeorm/entities/Pius';
+// import Piu from '@modules/Pius/infra/typeorm/entities/Pius';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
+  // OneToMany,
 } from 'typeorm';
 
 @Entity('users')
@@ -32,8 +32,8 @@ class User {
     @Column()
     photo: string;
 
-    @OneToMany(() => Piu, (piu) => piu)
-    pius: Piu[];
+    @Column('simple-json')
+    pius: JSON;
 
     @Column('simple-json')
     likes: JSON;

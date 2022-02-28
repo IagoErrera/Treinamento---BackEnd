@@ -6,7 +6,7 @@ import schemas from './schemas';
 const swagger: OpenAPIV3.Document = {
   openapi: '3.0.0',
   info: {
-    title: 'API do projeto XPTO',
+    title: 'API do Pewpewer - Treinamento de BackEnd - 2022',
     description: 'Documentação',
     contact: {
       email: 'email@polijunior.com.br',

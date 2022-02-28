@@ -1,7 +1,15 @@
-import exemplePaths from './example';
+import usersPaths from './users';
+import loginSchema from './login';
+import registerSchema from './register';
+import followSchema from './follow';
+import piusSchema from './pius';
 
 const paths = {
-  ...exemplePaths,
+  ...usersPaths,
+  ...loginSchema,
+  ...registerSchema,
+  ...followSchema,
+  ...piusSchema,
 };
 
 export default paths;

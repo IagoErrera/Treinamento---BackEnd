@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column, UpdateDateColumn,
   CreateDateColumn,
-  JoinTable,
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
@@ -15,11 +14,11 @@ class Piu {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @JoinTable()
+    @Column()
     user_id: string;
 
-    @ManyToOne(() => User)
-    @JoinColumn({ name: 'user_id' })
+    @ManyToOne(() => User, (user) => user.id)
+    @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: User
 
     @Column('simple-json')

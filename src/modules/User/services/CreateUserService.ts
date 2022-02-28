@@ -1,6 +1,8 @@
 import { hash } from 'bcryptjs';
 import { injectable, inject } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
+
 import IUsersRepository from '../repositories/IUsersRepository';
 
 import User from '../infra/typeorm/entities/User';
@@ -34,8 +36,8 @@ class CreateUserServices {
     const checkEmailExist = await this.userRepository.findByEmail(email);
     const checkUsernameExist = await this.userRepository.findByUsername(username);
 
-    if (checkEmailExist) throw new Error('This email is already used');
-    if (checkUsernameExist) throw new Error('This username is already used');
+    if (checkEmailExist) throw new AppError('This email is already used', 401);
+    if (checkUsernameExist) throw new AppError('This username is already used', 401);
 
     const hashedPassword = await hash(password, 8);
 

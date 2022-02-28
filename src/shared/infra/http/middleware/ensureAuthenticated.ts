@@ -3,6 +3,8 @@ import { verify } from 'jsonwebtoken';
 
 import authConfig from '@config/authConfig';
 
+import AppError from '@shared/errors/AppError';
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 interface TokenPayload {
     iat: number;
@@ -18,15 +20,13 @@ export default function ensureAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT token is missing');
+    throw new AppError('JWT token is missing', 401);
   }
 
-  const [token] = authHeader.split(' ');
+  const [, token] = authHeader.split(' ');
 
   try {
     const decoded = verify(token, authConfig.jwt.secret as string);
-
-    // console.log(decoded);
 
     const { sub } = decoded as TokenPayload;
 
@@ -36,6 +36,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch {
-    throw new Error('Invalid JWT token');
+    throw new AppError('Invalid JWT token', 401);
   }
 }

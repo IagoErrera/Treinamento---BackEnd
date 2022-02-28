@@ -13,3 +13,6 @@ dist/
 
 # orm
 ormconfig.json
+
+tmp/*
+!tmp/.gitkeep

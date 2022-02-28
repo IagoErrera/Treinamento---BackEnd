@@ -1,7 +1,11 @@
-import exempleSchema from './example';
+import userSchema from './User';
+import piuSchema from './Piu';
+import piuLikeSchema from './PiuLike';
 
 const schema = {
-  ...exempleSchema,
+  ...userSchema,
+  ...piuSchema,
+  ...piuLikeSchema,
 };
 
 export default schema;

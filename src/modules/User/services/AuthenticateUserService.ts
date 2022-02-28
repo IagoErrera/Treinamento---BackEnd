@@ -4,6 +4,8 @@ import { injectable, inject } from 'tsyringe';
 
 import authConfig from '@config/authConfig';
 
+import AppError from '@shared/errors/AppError';
+
 import User from '../infra/typeorm/entities/User';
 
 import IUsersRepository from '../repositories/IUsersRepository';
@@ -28,11 +30,11 @@ class AuthenticateUserService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.userRepository.findByEmail(email);
 
-    if (!user) throw new Error('Incorrect email/password');
+    if (!user) throw new AppError('Incorrect email/password', 400);
 
     const passwordMatch = await compare(password, user.password);
 
-    if (!passwordMatch) throw new Error('Incorrect email/password');
+    if (!passwordMatch) throw new AppError('Incorrect email/password', 400);
 
     const { secret, expiresIn } = authConfig.jwt;
 

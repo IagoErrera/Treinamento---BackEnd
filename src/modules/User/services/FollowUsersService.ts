@@ -1,6 +1,8 @@
 // import { getRepository } from 'typeorm';
 import { injectable, inject } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
+
 import IUsersRepository from '../repositories/IUsersRepository';
 
 import User from '../infra/typeorm/entities/User';
@@ -19,16 +21,16 @@ class FollowUserServices {
 
   public async execute({ followed_id, follower_id }: IRequest): Promise<User> {
     const followed = await this.userRepository.findById(followed_id);
-    if (!followed) throw new Error('The id of followed was not find');
+    if (!followed) throw new AppError('The id of followed was not find', 404);
 
     const follower = await this.userRepository.findById(follower_id);
-    if (!follower) throw new Error('The id of follower was not find');
+    if (!follower) throw new AppError('The id of follower was not find', 404);
 
     const follower_following = follower.following
       ? JSON.parse(JSON.stringify(follower.following)) as User[]
       : [] as User[];
     follower_following.forEach((user) => {
-      if (user.id === followed_id) throw new Error('Alread is following');
+      if (user.id === followed_id) throw new AppError('Alread is following');
     });
 
     const followed_followers = followed.followers

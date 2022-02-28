@@ -1,17 +1,22 @@
 import { OpenAPIV3 } from 'openapi-types';
 
-export const exempleSchema: OpenAPIV3.PathsObject = {
-  '/example': {
-    get: {
-      summary: 'Exemplo',
-      description: 'Documentação de exemplo',
-      tags: ['Exemplos'],
+import UserComponent from '../schemas/User';
+
+export const loginSchema: OpenAPIV3.PathsObject = {
+  '/session/login': {
+    post: {
+      summary: 'Login',
+      description: 'Loga com um usuário, gerando um token de autorização JWT',
+      tags: ['User'],
       requestBody: {
         content: {
           'application/json': {
             schema: {
               properties: {
-                example: {
+                email: {
+                  type: 'string',
+                },
+                password: {
                   type: 'string',
                 },
               },
@@ -20,19 +25,18 @@ export const exempleSchema: OpenAPIV3.PathsObject = {
         },
       },
       responses: {
-        401: {
-          description: 'Erro 401',
-        },
         400: {
-          description: 'Erro 400',
+          description: 'Bad Request',
         },
         200: {
-          description: 'OK',
+          description: 'User',
           content: {
             'application/json': {
               schema: {
+                type: 'object',
                 properties: {
-                  example: {
+                  ...UserComponent,
+                  token: {
                     type: 'string',
                   },
                 },
@@ -45,4 +49,4 @@ export const exempleSchema: OpenAPIV3.PathsObject = {
   },
 };
 
-export default exempleSchema;
+export default loginSchema;

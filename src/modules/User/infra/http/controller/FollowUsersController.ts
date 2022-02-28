@@ -8,7 +8,7 @@ export default class FollowUserController {
   public async execute(request: Request, response: Response): Promise<Response> {
     const followUser = container.resolve(FollowUserServices);
 
-    const follower_id = request.body.follower_id as string;
+    const follower_id = request.user.id as string;
     const followed_id = request.body.followed_id as string;
 
     const user = await followUser.execute({ follower_id, followed_id });
